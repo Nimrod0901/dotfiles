@@ -1,7 +1,7 @@
 export TERM="xterm-256color"
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/nimrod/.oh-my-zsh"
@@ -10,7 +10,7 @@ export ZSH="/Users/nimrod/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -102,24 +102,84 @@ source $ZSH/oh-my-zsh.sh
 # Anaconda3
 export PATH="/Users/nimrod/anaconda3/bin:$PATH"  # commented out by conda initialize
 
-source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
+# source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh anaconda virtualenv dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator time battery)
-POWERLEVEL9K_BATTERY_STAGES="▁▂▃▄▅▆▇█"
-POWERLEVEL9K_ANACONDA_BACKGROUND='black'
-POWERLEVEL9K_ANACONDA_FOREGROUND='yellow'
-POWERLEVEL9K_VIRTUALENV_FOREGROUND='yellow'
-POWERLEVEL9K_VIRTUALENV_BACKGROUND='black'
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh anaconda virtualenv dir vcs)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator)
+# # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator time battery)
+# POWERLEVEL9K_BATTERY_STAGES="▁▂▃▄▅▆▇█"
+# POWERLEVEL9K_ANACONDA_BACKGROUND='black'
+# POWERLEVEL9K_ANACONDA_FOREGROUND='yellow'
+# POWERLEVEL9K_VIRTUALENV_FOREGROUND='yellow'
+# POWERLEVEL9K_VIRTUALENV_BACKGROUND='black'
 
 export PATH="/Users/nimrod/Library/Python/3.7/bin:$PATH"
 
 alias jpt="jupyter-notebook"
-alias zshcfg="vim ~/.zshrc"
-alias vimcfg="vim ~/.vimrc"
+alias zfg="vim ~/.zshrc"
+alias vfg="vim ~/.vimrc"
 alias sact="source activate"
 alias cact="conda activate"
 alias sdact="source deactivate"
 alias cdact="conda deactivate"
 alias clr="clear"
+alias snd="sudo killall coreaudiod"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
+
+# Spaceship theme configuration
+# ORDER
+SPACESHIP_PROMPT_ORDER=(
+  time     #
+  vi_mode  # these sections will be
+  user     # before prompt char
+  host     #
+  char
+  dir
+  git
+  node
+  ruby
+  xcode
+  swift
+  golang
+  docker
+  venv
+  pyenv
+)
+
+# USER
+SPACESHIP_USER_PREFIX="" # remove `with` before username
+SPACESHIP_USER_SUFFIX="" # remove space before host
+
+# HOST
+# Result will look like this:
+#   username@:(hostname)
+SPACESHIP_HOST_PREFIX="@:("
+SPACESHIP_HOST_SUFFIX=") "
+
+# DIR
+SPACESHIP_DIR_PREFIX='' # disable directory prefix, cause it's not the first section
+SPACESHIP_DIR_TRUNC='1' # show only last directory
+
+# GIT
+# Disable git symbol
+SPACESHIP_GIT_SYMBOL="" # disable git prefix
+SPACESHIP_GIT_BRANCH_PREFIX="" # disable branch prefix too
+# Wrap git in `git:(...)`
+SPACESHIP_GIT_PREFIX='git:('
+SPACESHIP_GIT_SUFFIX=") "
+SPACESHIP_GIT_BRANCH_SUFFIX="" # remove space after branch name
+# Unwrap git status from `[...]`
+SPACESHIP_GIT_STATUS_PREFIX=""
+SPACESHIP_GIT_STATUS_SUFFIX=""
+
+# VENV
+SPACESHIP_VENV_PREFIX="venv:("
+SPACESHIP_VENV_SUFFIX=") "
+
+# PYENV
+SPACESHIP_PYENV_PREFIX="python:("
+SPACESHIP_PYENV_SUFFIX=") "
+SPACESHIP_PYENV_SYMBOL=""
