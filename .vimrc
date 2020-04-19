@@ -1,17 +1,13 @@
 call plug#begin('~/.vim/plugged')
-Plug 'dracula/vim', { 'as': 'dracula' }  " ColorScheme
+" color scheme
+Plug 'morhetz/gruvbox'
+
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
-Plug 'lervag/vimtex'
 Plug 'sirver/ultisnips'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'flazz/vim-colorschemes'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -21,12 +17,15 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-syntax'
-Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim'] }
 Plug 'sgur/vim-textobj-parameter'
+Plug 'tpope/vim-surround'
 
 " finder
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+" completion
+Plug 'ervandew/supertab'
 call plug#end()
 
 let mapleader=','
@@ -40,13 +39,14 @@ noremap <C-l> <C-w>l
 " for easymotion
 nmap ss <Plug>(easymotion-s2)
 
-" for vim-instant-markdown
-let g:instant_markdown_autostart = 0
-
 " for leaderF
+let g:Lf_PopupColorscheme = 'gruvbox'
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
-let g:Lf_PreviewResult = {'Function':0, 'Colorscheme':1}
+let g:Lf_PreviewInPopup = 1
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
 let g:Lf_NormalMap = {
 	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
@@ -57,17 +57,24 @@ let g:Lf_NormalMap = {
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
 
-" for ctrlp
-let g:ctrlp_map = '<c-p>'
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>fc :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " copy to buffer
 vmap <C-c> :w! ~/.vimbuffer<CR>
 nmap <C-c> :.w! ~/.vimbuffer<CR>
 " paste from buffer
 map <C-p> :r ~/.vimbuffer<CR>
-
-" for vimtex
-let g:tex_flavor='latex'
 
 " for ultisnips
 let g:UltiSnipsExpandTrigger='<tab>'
@@ -126,6 +133,7 @@ set relativenumber
 set nocompatible
 
 " color scheme
+colorscheme gruvbox
 syntax enable
 
 " Show position
