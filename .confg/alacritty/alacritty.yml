@@ -281,7 +281,7 @@ key_bindings:
     # shortcuts for tmux. the leader key is control-b (0x02)
   - { key: W,        mods: Command|Shift, chars: "\x02&"                       }  # close tab (kill)
   - { key: W,        mods: Command,       chars: "\x02x"                       }  # close pane (kill)
-  - { key: T,        mods: Command,       chars: "\x02c"                       }  # new tab
+#  - { key: T,        mods: Command,       chars: "\x02c"                       }  # new tab
   - { key: N,        mods: Command|Shift, chars: "\x02n"                       }  # select next tab
   - { key: P,        mods: Command|Shift, chars: "\x02p"                       }  # select previous tab
   - { key: O,        mods: Command,       chars: "\x02o"                       }  # select next pane
@@ -289,6 +289,8 @@ key_bindings:
   - { key: F,        mods: Command,       chars: "\x02/"                       }  # search (upwards)
   - { key: D,        mods: Command,       chars: "\x02%"                       }  # split vertically 
   - { key: D,        mods: Command|Shift, chars: "\x02\""                      }  # split horizontally
+  - { key: Z,        mods: Command,       chars: "\x02z"                       }  # full screen pane
+  - { key: Z,        mods: Command|Shift, chars: "\x02d"                       }  # deattch 
   - { key: H,        mods: Command,       chars: "\x02h"                       }
   - { key: J,        mods: Command,       chars: "\x02j"                       }
   - { key: K,        mods: Command,       chars: "\x02k"                       }
