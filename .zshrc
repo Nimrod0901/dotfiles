@@ -18,6 +18,7 @@ plugins=(
   virtualenv
   extract
   vi-mode
+  history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -31,3 +32,10 @@ export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
+
+realpath() {
+    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
