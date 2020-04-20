@@ -18,7 +18,6 @@ plugins=(
   virtualenv
   extract
   vi-mode
-  history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -36,6 +35,3 @@ export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_mo
 realpath() {
     [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
-
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
