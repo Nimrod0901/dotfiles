@@ -1,0 +1,37 @@
+if [ ! -e ~/.vim/autoload ]
+then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
+
+cp $SSHHOME/.sshrc.d/.tmux.conf ~/
+
+tmuxrc() {
+    local TMUXDIR=/tmp/russelltmuxserver
+    if ! [ -d $TMUXDIR ]; then
+        rm -rf $TMUXDIR
+        mkdir -p $TMUXDIR
+    fi
+    rm -rf $TMUXDIR/.sshrc.d
+    cp -r $SSHHOME/.sshrc $SSHHOME/bashsshrc $SSHHOME/sshrc $SSHHOME/.sshrc.d $TMUXDIR
+    SSHHOME=$TMUXDIR SHELL=$TMUXDIR/bashsshrc /usr/bin/tmux -S $TMUXDIR/tmuxserver $@
+}
+
+export SHELL=`which bash`
+
+# configure zsh to use the right .zshrc file
+export ZDOTDIR=$SSHHOME/.sshrc.d/
+
+# install pyenv
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+
+if [ -t 1 ]; then
+    if [ -x "$(command -v /opt/bin/zsh)" ]; then
+        exec /opt/bin/zsh
+    elif [ -x "$(command -v zsh)" ]; then
+        exec zsh
+    fi
+fi
+
+tmuxrc
