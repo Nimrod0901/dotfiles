@@ -17,7 +17,6 @@ plugins=(
   zsh-syntax-highlighting
   virtualenv
   extract
-  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
