@@ -47,9 +47,10 @@ if has('mouse')
 endif
 if has('persistent_undo')
     set undofile
-    set undodir=~/.config/nvim/tmp/undo,.
+    set undodir=~/.config/nvim/tmp/undo
 endif
 set updatetime=300
+set timeoutlen=500
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -96,6 +97,13 @@ noremap <leader>= <C-w>=
 noremap <leader>q <C-w>o
 
 
+" Autoload {{{1
+
+augroup scons
+  au!
+  autocmd BufNewFile,BufRead SCon* set syntax=python
+augroup END
+
 " Plugins {{{1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'mhinz/vim-startify'
@@ -117,55 +125,36 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-" nnoremap <silent> <leader> :WhichKey ','<CR>
 colo gruvbox
 
-" for vim-easymotion
+" WhichKey {{{2
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+" vim-easymotion {{{2
 map s <Plug>(easymotion-prefix)
 map ss <Plug>(easymotion-s2)
 
-
-" fzf
-noremap <C-p> :FZF<CR>
-
-"for nerdtree
-nmap <leader>t :NERDTreeToggle<cr>
-nmap <leader>v :NERDTreeFind<cr>
-
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
 " nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 " nnoremap <leader>m :! display<Space>
 
-" vim-airline
+" nerdtree {{{2
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader>t :NERDTreeToggle<cr>
+nnoremap <leader>v :NERDTreeFind<cr>
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
+" vim-airline {{{2
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
-endif
-
-"for nerdtree
-nmap <leader>t :NERDTreeToggle<cr>
-nmap <leader>v :NERDTreeFind<cr>
-
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
-" nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
-" nnoremap <leader>m :! display<Space>
-
-" vim-airline
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 
 
-" vim-fugitive
+" vim-fugitive {{{2
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>ga :Gcommit --amend<CR>
@@ -180,7 +169,8 @@ nnoremap <leader>gm :Gmove<Space>
 nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
 
-"fzf.vim
+" fzf {{{2
+noremap <C-p> :FZF<CR>
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -205,13 +195,7 @@ endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-augroup scons
-  au!
-  autocmd BufNewFile,BufRead SCon* set syntax=python
-augroup END
-
-
-" coc-nvim
+" coc-nvim {{{2
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
