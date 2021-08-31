@@ -96,6 +96,11 @@ noremap <leader>l <C-w>l
 noremap <leader>= <C-w>=
 noremap <leader>q <C-w>o
 
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
 
 " Autoload {{{1
 
@@ -123,6 +128,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'liuchengxu/vim-which-key'
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-runner'
 call plug#end()
 
 colo gruvbox
