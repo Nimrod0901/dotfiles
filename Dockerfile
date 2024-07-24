@@ -1,0 +1,46 @@
+# Use the official Ubuntu 20.04 as a base image
+FROM ubuntu:20.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update the package list and install common tools
+RUN apt-get update && \
+    apt-get install -y \
+    build-essential \
+    curl \
+    cmake \
+    make \
+    git \
+    zip \
+    unzip \
+    gcc \
+    python \
+    python3-pip \
+    python3-venv \
+    curl \
+    clangd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install 20
+
+RUN python3 -m pip install pyright cmake-language-server pynvim
+
+# Install tools
+# Install Fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+
+# Bat / Fd / Ripgrep / Dust / sd / glances / tldr
+
+# Install Neovim
+RUN curl -LJO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && tar -C /opt -xzf nvim-linux64.tar.gz
+
+# Install Lazy and plugins
+# RUN git clone https://github.com/LazyVim/starter ~/.config/lazyvim/
+RUN git clone https://github.com/Nimrod0901/dotfiles.git -b nvim-kickstart ~/.config/lazyvim
+RUN NVIM_APPNAME=lazyvim /opt/nvim-linux64/bin/nvim --headless "+Lazy! sync" +qa
+
