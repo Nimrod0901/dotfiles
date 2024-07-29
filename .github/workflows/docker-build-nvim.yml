@@ -1,17 +1,11 @@
-name: ci
+name: Build Neovim Image
 
 on:
   push:
     branches:
       - docker
-      - 'Dockerfile.nvm'
     paths:
-  pull_request:
-    branches:
-      - docker
-    paths:
-      - 'Dockerfile.nvim'
-
+      - Dockerfile.nvim
 jobs:
   build:
     runs-on: ubuntu-20.04

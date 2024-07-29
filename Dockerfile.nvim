@@ -30,17 +30,11 @@ RUN . "$NVM_DIR/nvm.sh" && nvm install 20
 
 RUN python3 -m pip install pyright cmake-language-server pynvim
 
-# Install tools
-# Install Fzf
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-
-# Bat / Fd / Ripgrep / Dust / sd / glances / tldr
-
 # Install Neovim
 RUN curl -LJO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && tar -C /opt -xzf nvim-linux64.tar.gz
 
 # Install Lazy and plugins
 # RUN git clone https://github.com/LazyVim/starter ~/.config/lazyvim/
-RUN git clone https://github.com/Nimrod0901/dotfiles.git -b nvim-kickstart ~/.config/lazyvim
-RUN NVIM_APPNAME=lazyvim /opt/nvim-linux64/bin/nvim --headless "+Lazy! sync" +qa
+RUN git clone https://github.com/Nimrod0901/dotfiles.git -b nvim-kickstart ~/.config/kickstart
+RUN NVIM_APPNAME=kickstart /opt/nvim-linux64/bin/nvim --headless "+Lazy! sync" +qa
 

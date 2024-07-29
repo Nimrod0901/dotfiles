@@ -1,17 +1,11 @@
-name: ci
+name: Build Cli Image
 
 on:
   push:
     branches:
       - docker
-      - 'Dockerfile.cli'
-    paths:
-  pull_request:
-    branches:
-      - docker
     paths:
       - 'Dockerfile.cli'
-
 jobs:
   build:
     runs-on: ubuntu-20.04
