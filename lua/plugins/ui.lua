@@ -12,7 +12,9 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       stages = "static",
-      timeout = 3000,
+      render = "minimal",
+      timeout = 1500,
+      opacity = 30,
       max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end,

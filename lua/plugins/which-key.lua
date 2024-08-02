@@ -1,18 +1,23 @@
 return {
   "folke/which-key.nvim",
-  event = "VimEnter", -- Sets the loading event to 'VimEnter'
-  config = function() -- This is the function that runs, AFTER loading
-    require("which-key").setup()
-
-    -- Document existing key chains
-    require("which-key").add({
-      { "<leader>c", group = "[C]ode" },
-      { "<leader>d", group = "[D]ocument" },
-      { "<leader>r", group = "[R]ename" },
+  event = "VeryLazy",
+  opts = {
+    defaults = {},
+    spec = {
+      mode = { "n", "v" },
+      { "<leader>f", group = "[F]ind" },
+      { "<leader>g", group = "[G]it" },
       { "<leader>s", group = "[S]earch" },
-      { "<leader>w", group = "[W]orkspace" },
-      { "<leader>t", group = "[T]oggle" },
-      { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
-    })
-  end,
+      -- { "<leader>t", group = "Neo[T]ree" },
+    },
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
 }
