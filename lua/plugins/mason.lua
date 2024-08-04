@@ -1,5 +1,6 @@
 return {
   "williamboman/mason.nvim",
+  dependencies = {},
   build = ":MasonInstallAll",
   config = function()
     local f = require("utils.functions")
@@ -20,7 +21,7 @@ return {
         -- "json-lsp",
         "lua-language-server",
         -- "prettierd",
-        "python-lsp-server",
+        -- "python-lsp-server",
         "shellcheck",
         "shfmt",
         "stylua",
