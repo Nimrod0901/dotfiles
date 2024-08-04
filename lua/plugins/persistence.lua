@@ -7,27 +7,27 @@ return {
     },
     keys = {
       {
-        "<leader>qs",
+        "<leader>ps",
         function()
           require("persistence").load()
         end,
       },
       {
-        "<leader>qS",
+        "<leader>pS",
         function()
           require("persistence").select()
         end,
       },
       {
-        "<leader>ql",
+        "<leader>pl",
         function()
           require("persistence").load({ last = true })
         end,
       },
       {
-        "<leader>qd",
+        "<leader>pd",
         function()
-          require("persistence").stop()()
+          require("persistence").stop()
         end,
       },
     },

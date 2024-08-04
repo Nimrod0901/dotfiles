@@ -8,6 +8,8 @@ return {
       { "<leader>c", group = "[C]ode" },
       { "<leader>f", group = "[F]ind" },
       { "<leader>g", group = "[G]it" },
+      { "<leader>p", group = "[P]ersistence" },
+      { "<leader>r", group = "[R]un" },
       { "<leader>s", group = "[S]earch" },
       -- { "<leader>t", group = "Neo[T]ree" },
     },

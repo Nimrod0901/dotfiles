@@ -17,6 +17,7 @@ return {
         "black",
         "clang-format",
         "clangd",
+        "pyright",
         -- "dockerfile-language-server",
         -- "json-lsp",
         "lua-language-server",
