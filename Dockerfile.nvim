@@ -4,6 +4,8 @@ FROM ubuntu:20.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV HOME=/home/ld
+
 # Update the package list and install common tools
 RUN apt-get update && \
     apt-get install -y \
@@ -20,16 +22,14 @@ RUN apt-get update && \
     python3-pip \
     python3-venv \
     curl \
-    clangd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-
-ENV NVM_DIR=/root/.nvm
-RUN . "$NVM_DIR/nvm.sh" && nvm install 20
-
-RUN python3 -m pip install pyright cmake-language-server pynvim
+ENV NVM_DIR=$HOME/.local/nvm
+ENV NODE_VERSION=20.16.0
+RUN mkdir -p $NVM_DIR && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+RUN . "$NVM_DIR/nvm.sh" && nvm install $NODE_VERSION
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # Install Neovim
 RUN curl -LJO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz && tar -C /opt -xzf nvim-linux64.tar.gz
@@ -37,5 +37,4 @@ RUN curl -LJO https://github.com/neovim/neovim/releases/latest/download/nvim-lin
 # Install Lazy and plugins
 # RUN git clone https://github.com/LazyVim/starter ~/.config/lazyvim/
 RUN git clone https://github.com/Nimrod0901/dotfiles.git -b nvim-kickstart ~/.config/kickstart
-RUN NVIM_APPNAME=kickstart /opt/nvim-linux64/bin/nvim --headless +"Lazy! sync" +"TSUpdate" +qa
-
+RUN NVIM_APPNAME=kickstart /opt/nvim-linux64/bin/nvim --headless +"Lazy! sync" +"TSUpdateSync" +"MasonInstallAll" +qa
