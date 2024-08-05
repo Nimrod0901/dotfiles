@@ -1,7 +1,7 @@
 return {
   "williamboman/mason.nvim",
   dependencies = {},
-  build = ":MasonInstallAll",
+  -- build = ":MasonInstallAll",
   config = function()
     local f = require("utils.functions")
     require("mason").setup({
