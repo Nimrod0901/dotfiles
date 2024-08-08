@@ -8,37 +8,40 @@ return {
     "hrsh7th/cmp-buffer",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lua",
-    { "JoseConseco/cmp-ai", opts = {} },
+    "onsails/lspkind-nvim",
+    -- { "JoseConseco/cmp-ai", opts = {} },
   },
 
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
     luasnip.config.setup({})
+    lspkind.init()
 
-    local cmp_ai = require("cmp_ai.config")
-    cmp_ai:setup({
-      max_lines = 100,
-      provider = "Ollama",
-      provider_options = {
-        model = "deepseek-coder:1.3b",
-        prompt = function(lines_before, lines_after)
-          -- prompt depends on the model you use. Here is an example for deepseek coder
-          return "<PRE> " .. lines_before .. " <SUF>" .. lines_after .. " <MID>" -- for codellama
-        end,
-      },
-      debounce_delay = 600, -- ms llama may be GPU hungry, wait x ms after last key input, before sending request to it
-      notify = true,
-      notify_callback = function(msg)
-        vim.notify(msg)
-      end,
-      run_on_every_keystroke = true,
-      ignored_file_types = {
-        -- default is not to ignore
-        -- uncomment to ignore in lua:
-        -- lua = true
-      },
-    })
+    -- local cmp_ai = require("cmp_ai.config")
+    -- cmp_ai:setup({
+    --   max_lines = 100,
+    --   provider = "Ollama",
+    --   provider_options = {
+    --     model = "deepseek-coder:1.3b",
+    --     prompt = function(lines_before, lines_after)
+    --       -- prompt depends on the model you use. Here is an example for deepseek coder
+    --       return "<PRE> " .. lines_before .. " <SUF>" .. lines_after .. " <MID>" -- for codellama
+    --     end,
+    --   },
+    --   debounce_delay = 600, -- ms llama may be GPU hungry, wait x ms after last key input, before sending request to it
+    --   notify = true,
+    --   notify_callback = function(msg)
+    --     vim.notify(msg)
+    --   end,
+    --   run_on_every_keystroke = true,
+    --   ignored_file_types = {
+    --     -- default is not to ignore
+    --     -- uncomment to ignore in lua:
+    --     -- lua = true
+    --   },
+    -- })
 
     cmp.setup({
       snippet = {
@@ -88,9 +91,17 @@ return {
         { name = "lazydev", group_index = 0 },
         { name = "luasnip", group_index = 1 },
         { name = "nvim_lsp", group_index = 1 },
-        { name = "cmp_ai", group_index = 2 },
+        -- { name = "cmp_ai", group_index = 2 },
         { name = "path", group_index = 2 },
         { name = "buffer", keyword_length = 2, max_item_count = 2, group_index = 2 },
+      },
+      formatting = {
+        format = lspkind.cmp_format({
+          mode = "symbol",
+          maxwidth = 50,
+          ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+          show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+        }),
       },
     })
   end,
