@@ -6,6 +6,7 @@ on:
       - docker
     paths:
       - 'Dockerfile.cli'
+      - 'cli_download.sh'
 jobs:
   build:
     runs-on: ubuntu-20.04

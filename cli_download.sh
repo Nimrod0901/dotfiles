@@ -27,3 +27,5 @@ wget -P $download_dir https://github.com/ajeetdsouza/zoxide/releases/download/v0
 wget -P $download_dir https://github.com/junegunn/fzf/releases/download/v0.54.2/fzf-0.54.2-linux_amd64.tar.gz
 # starship
 wget -P $download_dir https://github.com/starship/starship/releases/download/v1.20.1/starship-x86_64-unknown-linux-musl.tar.gz
+# omz
+wget -P $download_dir https://github.com/ohmyzsh/ohmyzsh/archive/refs/heads/master.zip
