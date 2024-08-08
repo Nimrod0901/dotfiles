@@ -57,6 +57,7 @@ return {
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[H]elp" })
     vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[K]eymaps" })
     vim.keymap.set("n", "<leader>sm", builtin.man_pages, { desc = "[M]anuals" })
+    vim.keymap.set("n", "<leader>sn", "<cmd>Telescope notify<cr>", { desc = "[N]anuals" })
     vim.keymap.set("n", "<leader>so", builtin.vim_options, { desc = "[O]ptions" })
     vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[R]esume" })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]elect Telescope" })
