@@ -28,6 +28,15 @@ wget -P $download_dir https://github.com/junegunn/fzf/releases/download/v0.54.2/
 # starship
 wget -P $download_dir https://github.com/starship/starship/releases/download/v1.20.1/starship-x86_64-unknown-linux-musl.tar.gz
 # omz
-wget -P $download_dir https://github.com/ohmyzsh/ohmyzsh/archive/refs/heads/master.zip
+wget -O $download_dir/ohmyzsh.zip https://github.com/ohmyzsh/ohmyzsh/archive/refs/heads/master.zip
 # nvim
 wget -P $download_dir https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+# zsh-syntax-highlighting
+wget -O $download_dir/zsh_syntax_highlighting.zip https://github.com/zsh-users/zsh-syntax-highlighting/archive/refs/heads/master.zip
+# zsh-autosuggestions
+wget -O $download_dir/zsh_autosuggestions.zip https://github.com/zsh-users/zsh-autosuggestions/archive/refs/heads/master.zip
+# fzf-tab
+wget -O $download_dir/fzf-tab.zip https://github.com/Aloxaf/fzf-tab/archive/refs/heads/master.zip
+# zsh-you-should-use
+wget -O $download_dir/zsh-you-should-use.zip https://github.com/MichaelAquilina/zsh-you-should-use/archive/refs/heads/master.zip
+
