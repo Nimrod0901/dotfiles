@@ -1,10 +1,44 @@
+-- lsp in mason
+local mason_lsp_servers = {
+  clangd = {},
+  pyright = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = "Replace",
+        },
+      },
+    },
+  },
+  dockerls = {},
+  bashls = {},
+}
+
+-- lsp not in mason
+local extra_lsp_servers = {
+  ccls = {},
+}
+
+local ensure_installed = vim.tbl_keys(mason_lsp_servers)
+
+vim.list_extend(ensure_installed, {
+  -- linter
+  "shellcheck", -- shell
+  -- formatter
+  "stylua", -- lua
+  "black", -- python
+  "clang-format", -- cpp
+  "shfmt", -- bash
+})
+
 return {
+  { "WhoIsSethDaniel/mason-tool-installer.nvim", opts = { ensure_installed = ensure_installed } },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "williamboman/mason.nvim", ops = {} },
       { "williamboman/mason-lspconfig.nvim" },
-      -- { "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
       -- Useful status updates for LSP.
       { "j-hui/fidget.nvim", opts = {} },
@@ -12,6 +46,7 @@ return {
       -- Pretty UI
       -- { "nvimdev/lspsaga.nvim", opts = {} },
 
+      -- Better Lua LS
       {
         "folke/lazydev.nvim",
         ft = "lua",
@@ -78,59 +113,22 @@ return {
         end,
       })
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-      --
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local servers = {
-        clangd = {},
-        pyright = {},
-        ccls = {},
-        lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-      }
-
-      local ensure_installed = vim.tbl_keys(servers)
-
-      vim.list_extend(ensure_installed, {
-        "stylua", -- Used to format Lua code
-      })
-      -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
+            local config = mason_lsp_servers[server_name] or {}
+            config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+            require("lspconfig")[server_name].setup(config)
           end,
         },
       })
+
+      for server, config in pairs(extra_lsp_servers) do
+        require("lspconfig")[server].setup(config)
+      end
     end,
   },
 }
