@@ -1,0 +1,18 @@
+[submodule "plugins/tmux-fzf"]
+	path = plugins/tmux-fzf
+	url = https://github.com/sainnhe/tmux-fzf
+[submodule "plugins/tmux"]
+	path = plugins/tmux
+	url = https://github.com/catppuccin/tmux
+[submodule "plugins/tmux-cpu"]
+	path = plugins/tmux-cpu
+	url = https://github.com/tmux-plugins/tmux-cpu
+[submodule "plugins/vim-tmux-navigator"]
+	path = plugins/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "plugins/tmux-sensible"]
+	path = plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible
+[submodule "plugins/tpm"]
+	path = plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
