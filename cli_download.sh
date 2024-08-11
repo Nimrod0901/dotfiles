@@ -42,3 +42,6 @@ wget -O $download_dir/zsh-you-should-use.zip https://github.com/MichaelAquilina/
 # tmux
 wget -P $download_dir https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz
 git clone --recurse-submodules -b tmux https://github.com/Nimrod0901/dotfiles.git $download_dir/.tmux
+
+# glibc
+wget -P $download_dir http://ftp.gnu.org/gnu/libc/glibc-2.34.tar.gz
