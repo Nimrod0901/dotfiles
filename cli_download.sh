@@ -45,3 +45,5 @@ git clone --recurse-submodules -b tmux https://github.com/Nimrod0901/dotfiles.gi
 
 # glibc
 wget -P $download_dir http://ftp.gnu.org/gnu/libc/glibc-2.34.tar.gz
+# patchelf
+wget -P $download_dir http://launchpadlibrarian.net/470161083/patchelf_0.10-2build1_amd64.deb
