@@ -23,6 +23,8 @@ local extra_lsp_servers = {
 local ensure_installed = vim.tbl_keys(mason_lsp_servers)
 
 vim.list_extend(ensure_installed, {
+  -- llm
+  "llm-ls",
   -- linter
   "shellcheck", -- shell
   -- formatter
