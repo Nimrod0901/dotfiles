@@ -47,3 +47,5 @@ git clone --recurse-submodules -b tmux https://github.com/Nimrod0901/dotfiles.gi
 wget -P $download_dir http://ftp.gnu.org/gnu/libc/glibc-2.34.tar.gz
 # patchelf
 wget -P $download_dir http://launchpadlibrarian.net/470161083/patchelf_0.10-2build1_amd64.deb
+# zellij
+wget -P $download_dir https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz
