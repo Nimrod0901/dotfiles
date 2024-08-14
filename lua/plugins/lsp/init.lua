@@ -1,6 +1,11 @@
 -- lsp in mason
 local mason_lsp_servers = {
-  clangd = {},
+  clangd = {
+    cmd = {
+      "clangd",
+      "--offset-encoding=utf-16",
+    },
+  },
   pyright = {},
   lua_ls = {
     settings = {
@@ -17,7 +22,7 @@ local mason_lsp_servers = {
 
 -- lsp not in mason
 local extra_lsp_servers = {
-  ccls = {},
+  -- ccls = {},
 }
 
 local ensure_installed = vim.tbl_keys(mason_lsp_servers)
