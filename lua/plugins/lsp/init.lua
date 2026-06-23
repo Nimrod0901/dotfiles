@@ -25,9 +25,9 @@ local extra_lsp_servers = {
   -- ccls = {},
 }
 
-local ensure_installed = vim.tbl_keys(mason_lsp_servers)
+local mason_lsp_ensure_installed = vim.tbl_keys(mason_lsp_servers)
 
-vim.list_extend(ensure_installed, {
+local mason_tool_ensure_installed = {
   -- llm
   "llm-ls",
   -- linter
@@ -37,14 +37,18 @@ vim.list_extend(ensure_installed, {
   "black", -- python
   "clang-format", -- cpp
   "shfmt", -- bash
-})
+}
 
 return {
-  { "WhoIsSethDaniel/mason-tool-installer.nvim", opts = { ensure_installed = ensure_installed } },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    opts = { ensure_installed = mason_tool_ensure_installed },
+  },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim", ops = {} },
+      { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
 
       -- Useful status updates for LSP.
@@ -123,18 +127,23 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+      for server, server_config in pairs(mason_lsp_servers) do
+        local config = vim.tbl_deep_extend("force", {}, server_config, {
+          capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {}),
+        })
+        vim.lsp.config(server, config)
+      end
+
       require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            local config = mason_lsp_servers[server_name] or {}
-            config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-            require("lspconfig")[server_name].setup(config)
-          end,
-        },
+        ensure_installed = mason_lsp_ensure_installed,
       })
 
-      for server, config in pairs(extra_lsp_servers) do
-        require("lspconfig")[server].setup(config)
+      for server, server_config in pairs(extra_lsp_servers) do
+        local config = vim.tbl_deep_extend("force", {}, server_config, {
+          capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {}),
+        })
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
     end,
   },

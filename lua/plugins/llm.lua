@@ -1,5 +1,6 @@
 return {
   "huggingface/llm.nvim",
+  cmd = { "LLMToggleAutoSuggest", "LLMSuggestion" },
   opts = {
     backend = "ollama",
     url = "http://localhost:11434/api/generate",
@@ -21,7 +22,7 @@ return {
     },
     context_window = 4096,
     tokenizer = nil,
-    enable_suggestions_on_startup = true,
+    enable_suggestions_on_startup = false,
     accept_keymap = "<C-space>",
   },
 }
