@@ -5,6 +5,9 @@ local mason_lsp_servers = {
       "clangd",
       "--offset-encoding=utf-16",
     },
+    init_options = {
+      fallbackFlags = { "-std=c++20" },
+    },
   },
   pyright = {},
   lua_ls = {
