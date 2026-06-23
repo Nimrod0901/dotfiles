@@ -2,6 +2,7 @@
 -- See `:help vim.opt`
 -- See `:help option-list`
 
+vim.opt.background = "dark"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
